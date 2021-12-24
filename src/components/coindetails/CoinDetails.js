@@ -2,6 +2,7 @@ import { Fragment, useCallback } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import Loader from "react-js-loader";
 import styles from "./CoinDetails.module.css";
 
 const CoinDetails = (props) => {
@@ -44,7 +45,7 @@ const CoinDetails = (props) => {
         <div className={styles.container}>
             <div className={styles.coindetails}>
                 {!isLoading && isError && <p>Sorry Data could not be Fetched : (</p>}
-                {isLoading && <p>Loading ...</p>}
+                {isLoading && <Loader type="spinner-cub" bgColor={"#FFFFFF"} title={"Loading..."} color={"#FFFFFF"} size={100} />}
                 {!isLoading && !isError && coin && (
                     <Fragment>
                         <h1>{coin.name}</h1>

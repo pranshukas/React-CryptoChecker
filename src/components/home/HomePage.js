@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Loader from "react-js-loader";
 import Axios from "axios";
 import styles from "./Home.module.css";
 import Coin from "../coins/Coin";
@@ -63,7 +64,7 @@ const HomePage = () => {
                 </div>
             </div>
             <div className={styles["coin-container"]}>
-                {isLoading && !isError && <div className={styles.loading}>Loading...</div>}
+                {isLoading && !isError && <Loader type="spinner-cub" bgColor={"#FFFFFF"} title={"Loading"} color={"#FFFFFF"} size={100} />}
                 {!isLoading && isError && <div className={styles.error}>Sorry, Unable Fetch Data : (</div>}
                 {!isLoading &&
                     !isError &&
