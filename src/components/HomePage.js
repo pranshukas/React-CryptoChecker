@@ -56,8 +56,8 @@ const HomePage = () => {
                 </div>
             </div>
             <div className={styles["coin-container"]}>
-                {isLoading && <p>Loading...</p>}
-                {!isLoading && isError && <p>Sorry, Unable Fetch Data</p>}
+                {isLoading && !isError && <div className={styles.loading}>Loading...</div>}
+                {!isLoading && isError && <div className={styles.error}>Sorry, Unable Fetch Data : (</div>}
                 {!isLoading &&
                     !isError &&
                     coins.map((coin) => {
