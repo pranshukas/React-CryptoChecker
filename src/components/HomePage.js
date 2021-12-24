@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import styles from "./Home.module.css";
+import Coin from "./coins/Coin";
 
 const HomePage = () => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [coins, setCoins] = useState([]);
     // const [searchTerm, setSearchTerm] = useState("");
@@ -27,9 +28,9 @@ const HomePage = () => {
                 for (const key in responseData) {
                     loadedCoins.push({
                         id: responseData[key].id,
-                        icon: responseData[key].image,
-                        coinName: responseData[key].name,
-                        coinSymbol: responseData[key].symbol,
+                        image: responseData[key].image,
+                        name: responseData[key].name,
+                        symbol: responseData[key].symbol,
                         price: responseData[key].current_price,
                         marketCap: responseData[key].market_cap,
                         priceChange: responseData[key].price_change_percentage_24h,
@@ -57,8 +58,22 @@ const HomePage = () => {
             <div className={styles["coin-container"]}>
                 {isLoading && <p>Loading...</p>}
                 {!isLoading && isError && <p>Sorry, Unable Fetch Data</p>}
-                {/* {!isLoading} */}
-                
+                {!isLoading &&
+                    !isError &&
+                    coins.map((coin) => {
+                        return (
+                            <Coin
+                                key={coin.id}
+                                id={coin.id}
+                                icon={coin.image}
+                                coinName={coin.name}
+                                coinSymbol={coin.symbol}
+                                price={coin.price}
+                                marketCap={coin.marketCap}
+                                priceChange={coin.priceChange}
+                            />
+                        );
+                    })}
             </div>
         </div>
     );
