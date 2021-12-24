@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
+import CoinDetails from "../components/coindetails/CoinDetails";
 
 const CoinPage = () => {
     const params = useParams();
-    return <h1>Coin Page {params.id}</h1>;
+    return <CoinDetails id={params.id} />;
 };
 
 export default CoinPage;

@@ -70,15 +70,13 @@
 
 .coin button {
     margin-left: 20px;
-    height: 30px;
-    width: 100px;
-    padding: 0px 10px;
+    padding: 10px 13px;
     background-color: #3aafa9;
     border: none;
     border-radius: 5px;
     color: white;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
 }
 
