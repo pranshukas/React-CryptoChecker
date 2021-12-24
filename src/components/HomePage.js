@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Axios from "axios";
 import styles from "./Home.module.css";
 import Coin from "./coins/Coin";
@@ -7,7 +7,8 @@ const HomePage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [coins, setCoins] = useState([]);
-    // const [searchTerm, setSearchTerm] = useState("");
+    const searchRef = useRef();
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         refreshPage();
@@ -46,12 +47,18 @@ const HomePage = () => {
         setIsLoading(false);
     };
 
+    const filteredCoins = coins.filter((coin) => coin.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    const searchBarHandler = () => {
+        setSearchTerm(searchRef.current.value);
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles["header-container"]}>
                 <h1>Welcome To Crypto Checker</h1>
                 <div className={styles.search}>
-                    <input placeholder="Search for a Coin" type="text" />
+                    <input placeholder="Search for a Coin" type="text" ref={searchRef} onChange={searchBarHandler} />
                     <img src="/images/refresh.png" alt="refresh button" onClick={refreshPage} />
                 </div>
             </div>
@@ -60,7 +67,7 @@ const HomePage = () => {
                 {!isLoading && isError && <div className={styles.error}>Sorry, Unable Fetch Data : (</div>}
                 {!isLoading &&
                     !isError &&
-                    coins.map((coin) => {
+                    filteredCoins.map((coin) => {
                         return (
                             <Coin
                                 key={coin.id}
