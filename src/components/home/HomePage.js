@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Loader from "react-js-loader";
 import Axios from "axios";
 import styles from "./Home.module.css";
@@ -11,11 +11,7 @@ const HomePage = () => {
     const searchRef = useRef();
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        refreshPage();
-    }, []);
-
-    const refreshPage = async () => {
+    const refreshPage = useCallback(async () => {
         setIsLoading(true);
         setIsError(false);
         const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
@@ -46,7 +42,11 @@ const HomePage = () => {
             setIsError(true);
         }
         setIsLoading(false);
-    };
+    }, []);
+
+    useEffect(() => {
+        refreshPage();
+    }, [refreshPage]);
 
     const filteredCoins = coins.filter((coin) => coin.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -68,6 +68,7 @@ const HomePage = () => {
                 {!isLoading && isError && <div className={styles.error}>Sorry, Unable Fetch Data : (</div>}
                 {!isLoading &&
                     !isError &&
+                    filteredCoins &&
                     filteredCoins.map((coin) => {
                         return (
                             <Coin
