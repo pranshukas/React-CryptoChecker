@@ -1,8 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./Coin.module.css";
 
 const Coin = (props) => {
-    const { icon, coinName, coinSymbol, price, marketCap, priceChange } = props;
+    let navigate = useNavigate();
+
+    const { icon, coinName, coinSymbol, price, marketCap, priceChange, id } = props;
     const priceChangeClass = `${styles["price-change"]} ${priceChange < 0 ? styles.red : styles.green}`;
+
+    const coinDetailHandler = () => {
+        navigate(`/CoinPage/${id}`);
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.coin}>
@@ -12,7 +20,7 @@ const Coin = (props) => {
                 <p className={styles.coinPrice}>$ {price.toFixed(2)}</p>
                 <p className={priceChangeClass}>{priceChange.toFixed(2)} %</p>
                 <p className={styles.coinVolume}>$ {marketCap.toLocaleString()}</p>
-                <button>More Info</button>
+                <button onClick={coinDetailHandler}>More Info</button>
             </div>
         </div>
     );
