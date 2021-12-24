@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Axios from "axios";
 import styles from "./Home.module.css";
-import Coin from "./coins/Coin";
+import Coin from "../coins/Coin";
 
 const HomePage = () => {
     const [isLoading, setIsLoading] = useState(true);
