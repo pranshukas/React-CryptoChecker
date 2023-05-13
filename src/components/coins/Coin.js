@@ -3,7 +3,7 @@ import styles from "./Coin.module.css";
 
 const Coin = (props) => {
     let navigate = useNavigate();
-
+    let navv=useNavigate();
     const { icon, coinName, coinSymbol, price, marketCap, priceChange, id } = props;
     const priceChangeClass = `${styles["price-change"]} ${priceChange < 0 ? styles.red : styles.green}`;
 
